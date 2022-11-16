@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: lkoirala
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/laxmankoiralaharborproject/app:971c881-47dd139
+        name: db-deployment
+        image: harbor.dev.afsmtddso.com/laxmankoiralaharborproject/db@sha256:64bcab31e62a147f788c84ffba076321973cc1a4b66bd8ac210b71cad08ee4ce
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
